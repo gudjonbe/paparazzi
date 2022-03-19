@@ -1,6 +1,6 @@
 <!DOCTYPE module SYSTEM "module.dtd">
 
-<module name="ggorange_avoider"/>
+<module name="ggorange_avoider">
   <doc>
     <description>
 This quite nice module is an example module for the course AE4317 Autonomous Flight of Micro Air Vehicles at the TU Delft.

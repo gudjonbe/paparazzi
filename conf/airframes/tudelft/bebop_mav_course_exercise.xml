@@ -51,6 +51,9 @@
 
     <module name="logger_file"/>
 
+
+    <!--module name="mav_course_exercise"/-->
+
     <!-- Video/Camera modules -->
     <module name="bebop_cam"/>
     <!--module name="bebop_ae_awb">
@@ -72,6 +75,14 @@
       <define name="VIEWVIDEO_DOWNSIZE_FACTOR" value="1"/>
       <define name="VIEWVIDEO_QUALITY_FACTOR" value="40"/>
     </module>
+
+
+
+
+
+
+
+
   </firmware>
 
   <commands>
