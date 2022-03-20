@@ -10,7 +10,7 @@
    settings_modules="modules/ahrs_int_cmpl_quat.xml 
    modules/bebop_cam.xml 
    modules/cv_detect_color_object.xml 
-   modules/ggorange_avoider.xml 
+   modules/gorange_avoider.xml 
    modules/gps.xml 
    modules/guidance_rotorcraft.xml 
    modules/imu_common.xml 
@@ -36,7 +36,6 @@
    modules/imu_common.xml modules/ins_extended.xml 
    modules/nav_basic_rotorcraft.xml 
    modules/orange_avoider_guided.xml 
-   modules/ggorange_avoider.xml 
    modules/stabilization_indi_simple.xml 
    modules/video_capture.xml 
    modulesgeo_mag.xml
@@ -46,8 +45,8 @@
    release="951019e34be0464cee1171a083947981c4b8c55d"
   />
     <aircraft
-   name="stupid_aircraft"
-   ac_id="420"
+   name="the_flying_emu"
+   ac_id="69"
    airframe="airframes/tudelft/bebop_course_orangeavoid.xml"
    radio="radios/dummy.xml"
    telemetry="telemetry/default_rotorcraft.xml"
@@ -64,7 +63,8 @@
    modules/nav_basic_rotorcraft.xml 
    modules/stabilization_indi_simple.xml 
    modules/video_capture.xml 
-   modules/video_rtp_stream.xml"
+   modules/video_rtp_stream.xml
+   modules/mav_course_exercise.xml"
    gui_color="white"
    release="951019e34be0464cee1171a083947981c4b8c55d"
   />
