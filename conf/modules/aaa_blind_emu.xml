@@ -1,6 +1,7 @@
+
 <!DOCTYPE module SYSTEM "module.dtd">
 
-<module name="mav_course_exercise">
+<module name="aaa_blind_emu">
   <doc>
     <description>
 This module is an example module for the course AE4317 Autonomous Flight of Micro Air Vehicles at the TU Delft.
@@ -25,14 +26,15 @@ so you have to define which filter to use with the ORANGE_AVOIDER_VISUAL_DETECTI
     <depends>cv_detect_color_object</depends>
   </dep>
   <header>
-    <file name="mav_exercise.h"/>
+    <file name="mav_exercise_nav_without_detection.h"/>
   </header>
-  <init fun="mav_exercise_init()"/>
-  <periodic fun="mav_exercise_periodic()" freq="4"/>
+  <init fun="blind_emu_init()"/>
+  <periodic fun="blind_emu_periodic()" freq="4"/>
   <makefile target="ap|nps">
-    <file name="mav_exercise.c"/>
+    <file name="mav_exercise_nav_without_detection.c"/>
   </makefile>
 
 </module>
+
 
 
