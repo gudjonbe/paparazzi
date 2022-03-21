@@ -44,6 +44,8 @@ static uint8_t calculateForwards(struct EnuCoor_i *new_coor, float distanceMeter
 static uint8_t moveWaypoint(uint8_t waypoint, struct EnuCoor_i *new_coor);
 static uint8_t increase_nav_heading(float incrementDegrees);
 static uint8_t chooseRandomIncrementAvoidance(void);
+static uint8_t leftTurn20deg(void);
+static uint8_t rightTurn20deg(void);
 
 enum navigation_state_t {
   SAFE,
@@ -142,7 +144,9 @@ void mav_exercise_periodic(void)
       waypoint_move_here_2d(WP_TRAJECTORY);
 
       // randomly select new search direction
-      chooseRandomIncrementAvoidance();
+      // chooseRandomIncrementAvoidance();
+
+      leftTurn20deg();
 
       navigation_state = SEARCH_FOR_SAFE_HEADING;
 
@@ -251,17 +255,15 @@ uint8_t chooseRandomIncrementAvoidance(void)
 uint8_t leftTurn20deg(void)
 {
   // GB - Turn 20deg left  
-  heading_increment = 20.f;
+  heading_increment = -20.f;
   VERBOSE_PRINT("Turning 20 deg to the left: %f\n", heading_increment);
-
   return false;
 }
 
-uint8_t leftTurn20deg(void)
+uint8_t rightTurn20deg(void)
 {
   // GB - Turn 20deg right  
-  heading_increment = -20.f;
+  heading_increment = 20.f;
   VERBOSE_PRINT("Turning 20 deg to the right: %f\n", heading_increment);
-
   return false;
 }
