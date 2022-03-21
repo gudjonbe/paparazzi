@@ -29,7 +29,7 @@
 #ifndef AHRS_MADGWICK_H
 #define AHRS_MADGWICK_H
 
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 #include "math/pprz_algebra_float.h"
 #include "math/pprz_orientation_conversion.h"
 

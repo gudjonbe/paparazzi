@@ -27,11 +27,11 @@
 
 #include "std.h"
 
-#include "modules/ahrs/ahrs_float_dcm.h"
-#include "modules/ahrs/ahrs_float_utils.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_dcm.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_utils.h"
 #include "autopilot.h"  // launch detection
 
-#include "modules/ahrs/ahrs_float_dcm_algebra.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_dcm_algebra.h"
 #include "math/pprz_algebra_float.h"
 
 #if USE_GPS

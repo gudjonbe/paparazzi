@@ -27,7 +27,7 @@
 #ifndef AHRS_FLOAT_MLKF_WRAPPER_H
 #define AHRS_FLOAT_MLKF_WRAPPER_H
 
-#include "modules/ahrs/ahrs_float_mlkf.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_mlkf.h"
 
 #ifndef PRIMARY_AHRS
 #define PRIMARY_AHRS ahrs_mlkf

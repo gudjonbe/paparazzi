@@ -55,8 +55,8 @@ enum navigation_state_t {
 // define settings
 float oag_color_count_frac = 0.18f;       // obstacle detection threshold as a fraction of total of image
 float oag_floor_count_frac = 0.05f;       // floor detection threshold as a fraction of total of image
-float oag_max_speed = 0.5f;               // max flight speed [m/s]
-float oag_heading_rate = RadOfDeg(20.f);  // heading change setpoint for avoidance [rad/s]
+float oag_max_speed = 0.9f;               // max flight speed [m/s] ****************************************************************WAS 0.5
+float oag_heading_rate = RadOfDeg(2.f);  // heading change setpoint for avoidance [rad/s] ******************************************WAS 20
 
 // define and initialise global variables
 enum navigation_state_t navigation_state = SEARCH_FOR_SAFE_HEADING;   // current state in state machine

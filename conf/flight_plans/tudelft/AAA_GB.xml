@@ -18,22 +18,28 @@ inline void setGuided(void){
 }
 </header>
   <waypoints>
-    <waypoint lat="51.990631" lon="4.376796" name="HOME"/>
-    <waypoint name="CLIMB" x="1.9" y="1.0"/>
-    <waypoint name="STDBY" x="1.9" y="1.0"/>
-    <waypoint name="TD" x="0.8" y="-1.7"/>
-    <waypoint name="GOAL" x="1.9" y="1.0"/>
-    <waypoint name="TRAJECTORY" x="1.9" y="1.0"/>
+    <waypoint lat="51.990638" lon="4.376836" name="HOME"/>
+    <waypoint name="CLIMB" x="2.9" y="0.6"/>
+    <waypoint name="STDBY" x="3.0" y="0.6"/>
+    <waypoint name="TD" x="3.2" y="0.3"/>
+    <waypoint name="GOAL" x="2.9" y="0.6"/>
+    <waypoint name="TRAJECTORY" x="3.0" y="0.5"/>
     <waypoint lat="51.9905834" lon="4.3767710" name="_CZ1"/>
     <waypoint lat="51.9906440" lon="4.3767060" name="_CZ2"/>
     <waypoint lat="51.9906860" lon="4.3768080" name="_CZ3"/>
     <waypoint lat="51.9906238" lon="4.3768729" name="_CZ4"/>
-    <waypoint lat="51.990610" lon="4.376768" name="_OZ1"/>
-    <waypoint lat="51.990631" lon="4.376744" name="_OZ2"/>
-    <waypoint lat="51.990659" lon="4.376766" name="_OZ3"/>
-    <waypoint lat="51.990658" lon="4.376823" name="_OZ4"/>
-    <waypoint lat="51.990623" lon="4.376847" name="_OZ5"/>
-    <waypoint lat="51.990609" lon="4.376814" name="_OZ6"/>
+    <waypoint lat="51.990598" lon="4.376774" name="_OZ1"/>
+    <waypoint lat="51.990638" lon="4.376724" name="_OZ2"/>
+    <waypoint lat="51.990662" lon="4.376764" name="_OZ3"/>
+    <waypoint lat="51.990669" lon="4.376806" name="_OZ4"/>
+    <waypoint lat="51.990625" lon="4.376853" name="_OZ5"/>
+    <waypoint lat="51.990609" lon="4.376821" name="_OZ6"/>
+    <waypoint lat="51.990613" lon="4.376778" name="_OZZ1"/>
+    <waypoint lat="51.990617" lon="4.376811" name="_OZZ2"/>
+    <waypoint lat="51.990627" lon="4.376832" name="_OZZ3"/>
+    <waypoint lat="51.990655" lon="4.376802" name="_OZZ4"/>
+    <waypoint lat="51.990653" lon="4.376771" name="_OZZ5"/>
+    <waypoint lat="51.990637" lon="4.376750" name="_OZZ6"/>
   </waypoints>
   <sectors>
     <sector color="red" name="CyberZoo">
@@ -49,6 +55,14 @@ inline void setGuided(void){
       <corner name="_OZ4"/>
       <corner name="_OZ5"/>
       <corner name="_OZ6"/>
+    </sector>
+    <sector color="#FF9922" name="ObstacleZone2">
+      <corner name="_OZZ1"/>
+      <corner name="_OZZ2"/>
+      <corner name="_OZZ3"/>
+      <corner name="_OZZ4"/>
+      <corner name="_OZZ5"/>
+      <corner name="_OZZ6"/>
     </sector>
   </sectors>
   <exceptions>

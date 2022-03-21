@@ -28,7 +28,7 @@
 #ifndef AHRS_VECTORNAV_WRAPPER_H
 #define AHRS_VECTORNAV_WRAPPER_H
 
-#include "modules/ahrs/ahrs_vectornav.h"
+#include "modules/aaa_emu_ahrs/ahrs_vectornav.h"
 
 #ifndef PRIMARY_AHRS
 #define PRIMARY_AHRS ahrs_vectornav

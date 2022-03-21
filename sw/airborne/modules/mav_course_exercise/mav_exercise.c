@@ -18,9 +18,9 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include "mav_exercise.h"
-#include "modules/core/abi.h"
+#include "modules/mac_couse_exercise/mav_exercise.h"
 #include "firmwares/rotorcraft/navigation.h"
+#include "modules/core/abi.h"
 #include "state.h"
 #include "autopilot_static.h"
 #include <stdio.h>

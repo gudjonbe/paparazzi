@@ -25,8 +25,8 @@
  *
  * @author Michal Podhradsky <michal.podhradsky@aggiemail.usu.edu>
  */
-#include "modules/ahrs/ahrs_vectornav_wrapper.h"
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs_vectornav_wrapper.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 #include "modules/core/abi.h"
 #include "state.h"
 

@@ -28,8 +28,8 @@
  * Estimate the attitude, heading and gyro bias.
  */
 
-#include "modules/ahrs/ahrs_float_mlkf.h"
-#include "modules/ahrs/ahrs_float_utils.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_mlkf.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_utils.h"
 
 #include <string.h>  /* for memcpy      */
 

@@ -26,10 +26,10 @@
  * https://x-io.co.uk/open-source-imu-and-ahrs-algorithms/
  */
 
-#include "modules/ahrs/ahrs_madgwick.h"
+#include "modules/aaa_emu_ahrs/ahrs_madgwick.h"
 #include "generated/airframe.h"
 #include "math/pprz_algebra_float.h"
-#include "modules/ahrs/ahrs_float_utils.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_utils.h"
 
 #ifndef AHRS_MADGWICK_BETA
 #define AHRS_MADGWICK_BETA 0.1f    // 2 * proportional gain

@@ -24,8 +24,8 @@
  * Paparazzi specific wrapper to run Madgwick ahrs filter.
  */
 
-#include "modules/ahrs/ahrs_madgwick_wrapper.h"
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs_madgwick_wrapper.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 #include "modules/core/abi.h"
 #include "mcu_periph/sys_time.h"
 #include "message_pragmas.h"

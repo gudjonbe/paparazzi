@@ -31,10 +31,10 @@
  * @author Michal Podhradsky <michal.podhradsky@aggiemail.usu.edu>
  */
 
-#include "modules/ahrs/ahrs_gx3.h"
+#include "modules/aaa_emu_ahrs/ahrs_gx3.h"
 
 // for ahrs_register_impl
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 #include "modules/core/abi.h"
 
 #define GX3_CHKSM(_ubx_payload) (uint16_t)((uint16_t)(*((uint8_t*)_ubx_payload+66+1))|(uint16_t)(*((uint8_t*)_ubx_payload+66+0))<<8)

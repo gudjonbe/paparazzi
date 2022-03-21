@@ -31,7 +31,7 @@
 #ifndef AHRS_INT_CMPL_QUAT_H
 #define AHRS_INT_CMPL_QUAT_H
 
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 #include "modules/gps/gps.h"
 #include "std.h"
 #include "math/pprz_algebra_int.h"

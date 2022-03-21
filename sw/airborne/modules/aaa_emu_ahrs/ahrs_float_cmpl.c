@@ -27,8 +27,8 @@
  * Propagation can be done in rotation matrix or quaternion representation.
  */
 
-#include "modules/ahrs/ahrs_float_cmpl.h"
-#include "modules/ahrs/ahrs_float_utils.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_cmpl.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_utils.h"
 #include "math/pprz_algebra_float.h"
 #include "math/pprz_algebra_int.h"
 #include "math/pprz_simple_matrix.h"

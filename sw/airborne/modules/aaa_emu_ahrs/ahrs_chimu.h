@@ -27,7 +27,7 @@
 #define AHRS_CHIMU_H
 
 #include "modules/ins/ins_module.h"
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 
 struct AhrsChimu {
   bool is_enabled;

@@ -27,7 +27,7 @@
 #ifndef AHRS_MADGWICK_WRAPPER_H
 #define AHRS_MADGWICK_WRAPPER_H
 
-#include "modules/ahrs/ahrs_madgwick.h"
+#include "modules/aaa_emu_ahrs/ahrs_madgwick.h"
 
 #ifndef PRIMARY_AHRS
 #define PRIMARY_AHRS ahrs_madgwick

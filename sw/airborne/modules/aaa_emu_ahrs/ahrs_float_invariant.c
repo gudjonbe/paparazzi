@@ -26,9 +26,9 @@
  *
  */
 
-#include "modules/ahrs/ahrs_float_invariant.h"
+#include "modules/aaa_emu_ahrs/ahrs_float_invariant.h"
 
-#include "modules/ahrs/ahrs_int_utils.h"
+#include "modules/aaa_emu_ahrs/ahrs_int_utils.h"
 
 #include "generated/airframe.h"
 

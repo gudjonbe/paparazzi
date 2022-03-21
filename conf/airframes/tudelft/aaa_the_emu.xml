@@ -57,7 +57,7 @@
     <module name="gps" type="datalink"/>
     <module name="stabilization" type="indi_simple"/>
     <module name="stabilization" type="rate_indi"/>
-    <module name="ahrs" type="int_cmpl_quat">
+    <module name="aaa_emu_ahrs" type="int_cmpl_quat">
       <configure name="USE_MAGNETOMETER" value="FALSE"/>
       <define name="AHRS_USE_GPS_HEADING" value="TRUE"/>
     </module>
@@ -83,10 +83,16 @@
       <define name="COLOR_OBJECT_DETECTOR_FPS2" value="0"/>
       <define name="COLOR_OBJECT_DETECTOR_DRAW2" value="1"/>
     </module>
-    <module name="orange_avoider_guided">
+    
+    <!--module name="orange_avoider_guided">
       <define name="ORANGE_AVOIDER_VISUAL_DETECTION_ID" value="COLOR_OBJECT_DETECTION1_ID"/>
       <define name="FLOOR_VISUAL_DETECTION_ID" value="COLOR_OBJECT_DETECTION2_ID"/>
+    </module-->
+    
+    <module name="mav_course_exercise">
+      <define name="ORANGE_AVOIDER_VISUAL_DETECTION_ID" value="ABI_BROADCAST"/>
     </module>
+    
     <module name="video_rtp_stream">
       <define name="VIEWVIDEO_CAMERA" value="front_camera"/>
       <define name="VIEWVIDEO_CAMERA2" value="bottom_camera"/>

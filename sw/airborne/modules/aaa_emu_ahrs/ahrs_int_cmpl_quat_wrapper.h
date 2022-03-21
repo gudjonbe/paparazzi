@@ -27,7 +27,7 @@
 #ifndef AHRS_INT_CMPL_QUAT_WRAPPER_H
 #define AHRS_INT_CMPL_QUAT_WRAPPER_H
 
-#include "modules/ahrs/ahrs_int_cmpl_quat.h"
+#include "modules/aaa_emu_ahrs/ahrs_int_cmpl_quat.h"
 
 #ifndef PRIMARY_AHRS
 #define PRIMARY_AHRS ahrs_icq

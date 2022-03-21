@@ -26,7 +26,7 @@
  *
  */
 
-#include "modules/ahrs/ahrs_sim.h"
+#include "modules/aaa_emu_ahrs/ahrs_sim.h"
 #include "math/pprz_algebra_float.h"
 #include "generated/airframe.h"
 #include "state.h"

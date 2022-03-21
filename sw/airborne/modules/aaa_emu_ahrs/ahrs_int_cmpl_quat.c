@@ -30,8 +30,8 @@
 
 #include "generated/airframe.h"
 
-#include "modules/ahrs/ahrs_int_cmpl_quat.h"
-#include "modules/ahrs/ahrs_int_utils.h"
+#include "modules/aaa_emu_ahrs/ahrs_int_cmpl_quat.h"
+#include "modules/aaa_emu_ahrs/ahrs_int_utils.h"
 
 #if USE_GPS
 #include "modules/gps/gps.h"

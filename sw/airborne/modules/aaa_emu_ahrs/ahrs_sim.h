@@ -29,7 +29,7 @@
 #ifndef AHRS_SIM_H
 #define AHRS_SIM_H
 
-#include "modules/ahrs/ahrs.h"
+#include "modules/aaa_emu_ahrs/ahrs.h"
 #include "std.h"
 
 extern float ins_roll_neutral;
