@@ -7,39 +7,23 @@
     #include "modules/radio_control/radio_control.h"
     #include "modules/ahrs/ahrs.h"
     #define NPS_GAZEBO_WORLD "cyberzoo_orange_poles.world"
-#include "autopilot.h"
-inline void setNav(void){
-  autopilot_mode_auto2 = AP_MODE_NAV;
-  autopilot_static_set_mode(AP_MODE_NAV);
-}
-inline void setGuided(void){
-  autopilot_mode_auto2 = AP_MODE_GUIDED;
-  autopilot_static_set_mode(AP_MODE_GUIDED);
-}
 </header>
   <waypoints>
-    <waypoint lat="51.990638" lon="4.376836" name="HOME"/>
-    <waypoint name="CLIMB" x="2.9" y="0.6"/>
-    <waypoint name="STDBY" x="3.0" y="0.6"/>
-    <waypoint name="TD" x="3.2" y="0.3"/>
-    <waypoint name="GOAL" x="2.9" y="0.6"/>
-    <waypoint name="TRAJECTORY" x="3.0" y="0.5"/>
+    <waypoint lat="51.990631" lon="4.376796" name="HOME"/>
+    <waypoint name="CLIMB" x="1.9" y="1.0"/>
+    <waypoint name="STDBY" x="1.9" y="1.0"/>
+    <waypoint name="TD" x="0.8" y="-1.7"/>
+    <waypoint name="GOAL" x="1.9" y="1.0"/>
+    <waypoint name="TRAJECTORY" x="1.9" y="1.0"/>
     <waypoint lat="51.9905834" lon="4.3767710" name="_CZ1"/>
     <waypoint lat="51.9906440" lon="4.3767060" name="_CZ2"/>
     <waypoint lat="51.9906860" lon="4.3768080" name="_CZ3"/>
     <waypoint lat="51.9906238" lon="4.3768729" name="_CZ4"/>
-    <waypoint lat="51.990598" lon="4.376774" name="_OZ1"/>
-    <waypoint lat="51.990638" lon="4.376724" name="_OZ2"/>
-    <waypoint lat="51.990662" lon="4.376764" name="_OZ3"/>
-    <waypoint lat="51.990669" lon="4.376806" name="_OZ4"/>
-    <waypoint lat="51.990625" lon="4.376853" name="_OZ5"/>
-    <waypoint lat="51.990609" lon="4.376821" name="_OZ6"/>
-    <waypoint lat="51.990613" lon="4.376778" name="_OZZ1"/>
-    <waypoint lat="51.990617" lon="4.376811" name="_OZZ2"/>
-    <waypoint lat="51.990627" lon="4.376832" name="_OZZ3"/>
-    <waypoint lat="51.990655" lon="4.376802" name="_OZZ4"/>
-    <waypoint lat="51.990653" lon="4.376771" name="_OZZ5"/>
-    <waypoint lat="51.990637" lon="4.376750" name="_OZZ6"/>
+
+    <waypoint lat="51.9905860" lon="4.3767712" name="_OZ1"/>
+    <waypoint lat="51.9906430" lon="4.3767110" name="_OZ2"/>
+    <waypoint lat="51.9906830" lon="4.3768048" name="_OZ3"/>
+    <waypoint lat="51.9906239" lon="4.3768684" name="_OZ4"/>
   </waypoints>
   <sectors>
     <sector color="red" name="CyberZoo">
@@ -53,38 +37,39 @@ inline void setGuided(void){
       <corner name="_OZ2"/>
       <corner name="_OZ3"/>
       <corner name="_OZ4"/>
-      <corner name="_OZ5"/>
-      <corner name="_OZ6"/>
-    </sector>
-    <sector color="#FF9922" name="ObstacleZone2">
-      <corner name="_OZZ1"/>
-      <corner name="_OZZ2"/>
-      <corner name="_OZZ3"/>
-      <corner name="_OZZ4"/>
-      <corner name="_OZZ5"/>
-      <corner name="_OZZ6"/>
     </sector>
   </sectors>
   <exceptions>
+    <!-- RC lost -->
+    <!--exception cond="((radio_control.status == RC_REALLY_LOST) @AND
+      !(IndexOfBlock('Holding point') @GT nav_block) @AND
+      !(nav_block >= IndexOfBlock('land here')) @AND
+      (autopilot_in_flight() == true) )" deroute="Standby"/-->
+    <!-- Datalink lost (constant RPM descent) -->
     <exception cond="((datalink_time @GT 5) @AND
       !(IndexOfBlock('Holding point') @GT nav_block) @AND
       !(nav_block >= IndexOfBlock('land here')) @AND
       (autopilot_in_flight() == true) )" deroute="land here"/>
+    <!-- Geofencing XY -->
     <exception cond="(!InsideCyberZoo(GetPosX(), GetPosY()) @AND
       !(IndexOfBlock('Holding point') @GT nav_block) @AND
       !(nav_block >= IndexOfBlock('land here')) @AND
       (autopilot_in_flight() == true) )" deroute="land here"/>
+    <!-- Geofencing Z 3.5 -->
     <exception cond="((GetPosAlt() @GT 3.5) @AND
       !(IndexOfBlock('Holding point') @GT nav_block) @AND
       !(nav_block >= IndexOfBlock('land here')) @AND
       (autopilot_in_flight() == true) )" deroute="land here"/>
+    <!-- Geofencing Z 4.5 (constant RPM descent)-->
     <exception cond="((GetPosAlt() @GT 4.5) @AND
       !(IndexOfBlock('Holding point') @GT nav_block) @AND
       (autopilot_in_flight() == true) )" deroute="Landed"/>
+    <!-- Bat low -->
     <exception cond="(electrical.bat_low @AND
       !(IndexOfBlock('Holding point') @GT nav_block) @AND
       !(nav_block >= IndexOfBlock('land here')) @AND
       (autopilot_in_flight() == true) )" deroute="land here"/>
+    <!-- Bat critical (constant RPM no stabilization)-->
     <exception cond="(electrical.bat_critical @AND
       !(IndexOfBlock('Holding point') @GT nav_block) @AND
       !(nav_block >= IndexOfBlock('land here')) @AND
@@ -118,22 +103,19 @@ inline void setGuided(void){
       <stay wp="STDBY"/>
     </block>
     <block key="g" name="START" strip_button="Go" strip_icon="lookfore.png">
-      <call_once fun="setGuided()"/>
-      <stay wp="STDBY"/>
+      <call_once fun="NavSetWaypointHere(WP_GOAL)"/>
+      <stay wp="GOAL"/>
     </block>
     <block name="STOP">
       <call_once fun="NavSetWaypointHere(WP_STDBY)"/>
-      <call_once fun="setNav()"/>
       <stay wp="STDBY"/>
     </block>
-    <block key="l" name="land here" strip_button="Land Here" strip_icon="land-right.png">
-      <call_once fun="setNav()"/>
+    <block key="l" name="land here" strip_button="land here" strip_icon="land-right.png">
       <call_once fun="NavSetWaypointHere(WP_TD)"/>
       <go wp="TD"/>
       <deroute block="Flare"/>
     </block>
     <block name="Land">
-      <call_once fun="setNav()"/>
       <go wp="TD"/>
       <deroute block="Flare"/>
     </block>

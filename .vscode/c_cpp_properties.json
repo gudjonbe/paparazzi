@@ -10,7 +10,8 @@
             },
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceFolder}/sw/airborne"
+                "${workspaceFolder}/sw/airborne",
+                "${workspaceFolder}/sw/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/arm-none-eabi-gcc",

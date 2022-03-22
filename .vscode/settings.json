@@ -15,6 +15,7 @@
         "tensor": "cpp",
         "mav_exercise.h": "c",
         "abi.h": "c",
-        "state.h": "c"
+        "state.h": "c",
+        "navigation.h": "c"
     },
 }

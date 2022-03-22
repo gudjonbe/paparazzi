@@ -31,6 +31,7 @@ so you have to define which filter to use with the ORANGE_AVOIDER_VISUAL_DETECTI
   <periodic fun="mav_exercise_periodic()" freq="4"/>
   <makefile target="ap|nps">
     <file name="mav_exercise.c"/>
+    
   </makefile>
 
 </module>
