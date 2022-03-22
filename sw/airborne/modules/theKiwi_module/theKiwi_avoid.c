@@ -17,6 +17,9 @@
  * so you have to define which filter to use with the ORANGE_AVOIDER_VISUAL_DETECTION_ID setting.
  */
 
+/******************** SECTION 1 ********************/
+/***************************************************/
+
 #include "modules/theKiwi_module/theKiwi_avoid.h"
 #include "firmwares/rotorcraft/navigation.h"
 #include "generated/airframe.h"
@@ -37,11 +40,17 @@
 #define VERBOSE_PRINT(...)
 #endif
 
+/******************** SECTION 2 ********************/
+/***************************************************/
+// DEFINING FUNCTIONS AND VARIABLES
+
+
 static uint8_t moveWaypointForward(uint8_t waypoint, float distanceMeters);
 static uint8_t calculateForwards(struct EnuCoor_i *new_coor, float distanceMeters);
 static uint8_t moveWaypoint(uint8_t waypoint, struct EnuCoor_i *new_coor);
 static uint8_t increase_nav_heading(float incrementDegrees);
 static uint8_t chooseRandomIncrementAvoidance(void);
+static uint8_t flySquareHolding(struct EnuCoor_i *new_coor, float distanceMeters, uint8_t waypoint);//GB
 
 enum navigation_state_t {
   SAFE, // just a name for the number 0
@@ -54,6 +63,12 @@ enum navigation_state_t {
 
 // define settings
 float oa_color_count_frac = 0.18f;
+
+
+/******************** SECTION 3 ********************/
+/***************************************************/
+// INITIALIZING VARIABLE VALUES
+
 
 // define and initialise global variables
 enum navigation_state_t navigation_state = SEARCH_FOR_SAFE_HEADING;
@@ -96,9 +111,14 @@ void theKiwi_init(void)
   AbiBindMsgVISUAL_DETECTION(ORANGE_AVOIDER_VISUAL_DETECTION_ID, &color_detection_ev, color_detection_cb);
 }
 
+
+
+// /*
+// * Function that checks it is safe to move forwards, and then moves a waypoint forward or changes the heading
+// */
+
 /*
- * Function that checks it is safe to move forwards, and then moves a waypoint forward or changes the heading
- */
+
 void theKiwi_periodic(void)
 {
   // only evaluate our state machine if we are flying
@@ -134,7 +154,7 @@ void theKiwi_periodic(void)
       } else {
         moveWaypointForward(WP_GOAL, moveDistance);
       }
-
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
       break;
     case OBSTACLE_FOUND:
       // stop
@@ -145,7 +165,7 @@ void theKiwi_periodic(void)
       chooseRandomIncrementAvoidance();
 
       navigation_state = SEARCH_FOR_SAFE_HEADING;
-
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
       break;
     case SEARCH_FOR_SAFE_HEADING:
       increase_nav_heading(heading_increment);
@@ -154,7 +174,9 @@ void theKiwi_periodic(void)
       if (obstacle_free_confidence >= 2){
         navigation_state = SAFE;
       }
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
       break;
+
     case OUT_OF_BOUNDS:
       increase_nav_heading(heading_increment);
       moveWaypointForward(WP_TRAJECTORY, 1.5f);
@@ -169,12 +191,104 @@ void theKiwi_periodic(void)
         // ensure direction is safe before continuing
         navigation_state = SEARCH_FOR_SAFE_HEADING;
       }
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
       break;
     default:
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
+      break;
+  }
+  return;
+} //end of periodic
+*/
+
+void theKiwi_periodic(void)
+{
+  // only evaluate our state machine if we are flying
+  if(!autopilot_in_flight())
+  {
+    return;
+  }
+
+  // compute current color thresholds
+  int32_t color_count_threshold = oa_color_count_frac * front_camera.output_size.w * front_camera.output_size.h;
+
+  //VERBOSE_PRINT("Color_count: %d  threshold: %d state: %d \n", color_count, color_count_threshold, navigation_state);
+
+  // update our safe confidence using color threshold
+  if(color_count < color_count_threshold){
+    obstacle_free_confidence++;
+  } else {
+    obstacle_free_confidence -= 2;  // be more cautious with positive obstacle detections
+  }
+
+  // bound obstacle_free_confidence
+  Bound(obstacle_free_confidence, 0, max_trajectory_confidence);
+
+  //float moveDistance = fminf(maxDistance, 0.2f * obstacle_free_confidence);
+  float moveDistance = 1.5;
+  switch (navigation_state){
+    case SAFE:
+      // Move waypoint forward
+      //moveWaypointForward(WP_TRAJECTORY, 1.5f * moveDistance);
+      //if (!InsideObstacleZone(WaypointX(WP_TRAJECTORY),WaypointY(WP_TRAJECTORY))){
+      //  navigation_state = OUT_OF_BOUNDS;
+      //} else if (obstacle_free_confidence == 0){
+      //  navigation_state = OBSTACLE_FOUND;
+      //} else {
+      //moveWaypointForward(WP_GOAL, moveDistance);
+      //}
+      //VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
+      
+      
+      flySquareHolding(stateGetNedToBodyEulers_f(), moveDistance, waypoints);
+
+      
+      break;
+    case OBSTACLE_FOUND:
+      // stop
+      waypoint_move_here_2d(WP_GOAL);
+      waypoint_move_here_2d(WP_TRAJECTORY);
+
+      // randomly select new search direction
+      chooseRandomIncrementAvoidance();
+
+      navigation_state = SEARCH_FOR_SAFE_HEADING;
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
+      break;
+    case SEARCH_FOR_SAFE_HEADING:
+      increase_nav_heading(heading_increment);
+
+      // make sure we have a couple of good readings before declaring the way safe
+      if (obstacle_free_confidence >= 2){
+        navigation_state = SAFE;
+      }
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
+      break;
+
+    case OUT_OF_BOUNDS:
+      increase_nav_heading(heading_increment);
+      moveWaypointForward(WP_TRAJECTORY, 1.5f);
+
+      if (InsideObstacleZone(WaypointX(WP_TRAJECTORY),WaypointY(WP_TRAJECTORY))){
+        // add offset to head back into arena
+        increase_nav_heading(heading_increment);
+
+        // reset safe counter
+        obstacle_free_confidence = 0;
+
+        // ensure direction is safe before continuing
+        navigation_state = SEARCH_FOR_SAFE_HEADING;
+      }
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
+      break;
+    default:
+      VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
       break;
   }
   return;
 }
+
+
 
 /*
  * Increases the NAV heading. Assumes heading is an INT32_ANGLE. It is bound in this function.
@@ -247,4 +361,29 @@ uint8_t chooseRandomIncrementAvoidance(void)
   }
   return false;
 }
+
+/******************************************************/
+/******************************************************/
+/******************** GB FUNCTIONS ********************/
+/******************************************************/
+/******************************************************/
+
+
+uint8_t flySquareHolding(struct EnuCoor_i *new_coor, float distanceMeters, uint8_t waypoint)
+{
+  float heading  = stateGetNedToBodyEulers_f()->psi;
+  // Now determine where to place the waypoint you want to go to
+  heading_increment = -90.f;
+  new_coor->x = stateGetPositionEnu_i()->x + POS_BFP_OF_REAL(sinf(heading) * (distanceMeters));
+  new_coor->y = stateGetPositionEnu_i()->y + POS_BFP_OF_REAL(cosf(heading) * (distanceMeters));
+  VERBOSE_PRINT("GB_Calculated %f m forward position. x: %f  y: %f based on pos(%f, %f) and heading(%f)\n", distanceMeters,	
+                POS_FLOAT_OF_BFP(new_coor->x), POS_FLOAT_OF_BFP(new_coor->y),
+                stateGetPositionEnu_f()->x, stateGetPositionEnu_f()->y, DegOfRad(heading));
+  
+  moveWaypointForward(WP_TRAJECTORY, distanceMeters);
+  waypoint_move_xy_i(waypoint, new_coor->x, new_coor->y);
+
+  return false;
+}
+
 
