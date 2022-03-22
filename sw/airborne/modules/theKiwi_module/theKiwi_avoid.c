@@ -44,10 +44,12 @@ static uint8_t increase_nav_heading(float incrementDegrees);
 static uint8_t chooseRandomIncrementAvoidance(void);
 
 enum navigation_state_t {
-  SAFE,
-  OBSTACLE_FOUND,
-  SEARCH_FOR_SAFE_HEADING,
-  OUT_OF_BOUNDS
+  SAFE, // just a name for the number 0
+  OBSTACLE_FOUND, // 1
+  SEARCH_FOR_SAFE_HEADING, // 2
+  OUT_OF_BOUNDS, // 3
+  LOST, //4
+  
 };
 
 // define settings
@@ -56,11 +58,11 @@ float oa_color_count_frac = 0.18f;
 // define and initialise global variables
 enum navigation_state_t navigation_state = SEARCH_FOR_SAFE_HEADING;
 int32_t color_count = 0;                // orange color count from color filter for obstacle detection
-int16_t obstacle_free_confidence = 0;   // a measure of how certain we are that the way ahead is safe.
-float heading_increment = 5.f;          // heading angle increment [deg]
-float maxDistance = 2.25;               // max waypoint displacement [m]
+int16_t obstacle_free_confidence = 6;   // a measure of how certain we are that the way ahead is safe.
+float heading_increment = 2.f;          // heading angle increment [deg]
+float maxDistance = 1.25;               // max waypoint displacement [m]
 
-const int16_t max_trajectory_confidence = 5; // number of consecutive negative object detections to be sure we are obstacle free
+const int16_t max_trajectory_confidence = 8; // number of consecutive negative object detections to be sure we are obstacle free
 
 /*
  * This next section defines an ABI messaging event (http://wiki.paparazziuav.org/wiki/ABI), necessary
