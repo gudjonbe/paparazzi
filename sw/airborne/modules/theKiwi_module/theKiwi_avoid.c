@@ -240,8 +240,8 @@ void theKiwi_periodic(void)
       //VERBOSE_PRINT("GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT GB PRINT ");
       
       
-      flySquareHolding(stateGetNedToBodyEulers_f(), moveDistance, waypoints);
-
+      //flySquareHolding(stateGetNedToBodyEulers_f(), moveDistance, WP_TRAJECTORY);
+      flySquareHolding(stateGetNedToBodyEulers_f(), moveDistance, WP_GOAL);
       
       break;
     case OBSTACLE_FOUND:
@@ -373,15 +373,18 @@ uint8_t flySquareHolding(struct EnuCoor_i *new_coor, float distanceMeters, uint8
 {
   float heading  = stateGetNedToBodyEulers_f()->psi;
   // Now determine where to place the waypoint you want to go to
-  heading_increment = -90.f;
+  heading_increment = -1.f;
   new_coor->x = stateGetPositionEnu_i()->x + POS_BFP_OF_REAL(sinf(heading) * (distanceMeters));
   new_coor->y = stateGetPositionEnu_i()->y + POS_BFP_OF_REAL(cosf(heading) * (distanceMeters));
   VERBOSE_PRINT("GB_Calculated %f m forward position. x: %f  y: %f based on pos(%f, %f) and heading(%f)\n", distanceMeters,	
                 POS_FLOAT_OF_BFP(new_coor->x), POS_FLOAT_OF_BFP(new_coor->y),
                 stateGetPositionEnu_f()->x, stateGetPositionEnu_f()->y, DegOfRad(heading));
   
-  moveWaypointForward(WP_TRAJECTORY, distanceMeters);
+  // moveWaypointForward(WP_TRAJECTORY, distanceMeters);
   waypoint_move_xy_i(waypoint, new_coor->x, new_coor->y);
+
+  increase_nav_heading(heading_increment);
+
 
   return false;
 }
